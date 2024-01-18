@@ -8,7 +8,7 @@ module.exports = {
         rules: [
             {
                 test: /\.d\.ts$/,
-                type: 'asset/source',
+                type: 'asset/source'
             },
             {
                 test: /\.tsx?$/,
@@ -16,9 +16,13 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
         ]
     },
     resolve: {
@@ -31,14 +35,14 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html',
-            favicon: './public/fav.ico',
+            favicon: './public/fav.ico'
         }),
         new CopyPlugin({
             patterns: [
                 { from: 'public/manifest.json', to: 'manifest.json' },
                 { from: 'public/fav.ico', to: 'fav.ico' },
-                { from: 'node_modules/@types/react/index.d.ts', to: 'path/to/@types/react/index.d.ts' },
-            ],
-        }),
+                { from: 'public/weather.json', to: 'weather.json' }
+            ]
+        })
     ]
 };

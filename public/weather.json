@@ -1,0 +1,269 @@
+[
+  {
+    "date": "2024-01-01",
+    "cities": [
+      {
+        "name": "Tokyo",
+        "airportCode": "HND",
+        "phoneCode": "+81",
+        "weather": "Sunny"
+      },
+      {
+        "name": "Delhi",
+        "airportCode": "DEL",
+        "phoneCode": "+91",
+        "weather": "Fog"
+      },
+      {
+        "name": "Shanghai",
+        "airportCode": "PVG",
+        "phoneCode": "+86",
+        "weather": "Cloudy"
+      },
+      {
+        "name": "Johannesburg",
+        "airportCode": "JNB",
+        "phoneCode": "+27",
+        "weather": "Rain"
+      },
+      {
+        "name": "Madrid",
+        "airportCode": "MAD",
+        "phoneCode": "+34",
+        "weather": "Sunny"
+      },
+      {
+        "name": "Chicago",
+        "airportCode": "ORD",
+        "phoneCode": "+1",
+        "weather": "Snow"
+      },
+      {
+        "name": "Sydney",
+        "airportCode": "SYD",
+        "phoneCode": "+61",
+        "weather": "Rain"
+      },
+      {
+        "name": "Rome",
+        "airportCode": "FCO",
+        "phoneCode": "+39",
+        "weather": "Cloudy"
+      },
+      {
+        "name": "Cape Town",
+        "airportCode": "CPT",
+        "phoneCode": "+27",
+        "weather": "Partly Cloudy"
+      },
+      {
+        "name": "Toronto",
+        "airportCode": "YYZ",
+        "phoneCode": "+1",
+        "weather": "Drizzle"
+      },
+      {
+        "name": "Berlin",
+        "airportCode": "TXL",
+        "phoneCode": "+49",
+        "weather": "Overcast"
+      },
+      {
+        "name": "Bangkok",
+        "airportCode": "BKK",
+        "phoneCode": "+66",
+        "weather": "Thunderstorm"
+      },
+      {
+        "name": "Buenos Aires",
+        "airportCode": "EZE",
+        "phoneCode": "+54",
+        "weather": "Fog"
+      },
+      {
+        "name": "Istanbul",
+        "airportCode": "IST",
+        "phoneCode": "+90",
+        "weather": "Mist"
+      }
+    ]
+  },
+  {
+    "date": "2024-01-02",
+    "cities": [
+      {
+        "name": "Tokyo",
+        "airportCode": "HND",
+        "phoneCode": "+81",
+        "weather": "Partly Cloudy"
+      },
+      {
+        "name": "Delhi",
+        "airportCode": "DEL",
+        "phoneCode": "+91",
+        "weather": "Thunderstorm"
+      },
+      {
+        "name": "Shanghai",
+        "airportCode": "PVG",
+        "phoneCode": "+86",
+        "weather": "Sleet"
+      },
+      {
+        "name": "Johannesburg",
+        "airportCode": "JNB",
+        "phoneCode": "+27",
+        "weather": "Sunny"
+      },
+      {
+        "name": "Madrid",
+        "airportCode": "MAD",
+        "phoneCode": "+34",
+        "weather": "Fog"
+      },
+      {
+        "name": "Chicago",
+        "airportCode": "ORD",
+        "phoneCode": "+1",
+        "weather": "Snow"
+      },
+      {
+        "name": "Sydney",
+        "airportCode": "SYD",
+        "phoneCode": "+61",
+        "weather": "Rain"
+      },
+      {
+        "name": "Rome",
+        "airportCode": "FCO",
+        "phoneCode": "+39",
+        "weather": "Drizzle"
+      },
+      {
+        "name": "Cape Town",
+        "airportCode": "CPT",
+        "phoneCode": "+27",
+        "weather": "Cloudy"
+      },
+      {
+        "name": "Toronto",
+        "airportCode": "YYZ",
+        "phoneCode": "+1",
+        "weather": "Overcast"
+      },
+      {
+        "name": "Berlin",
+        "airportCode": "TXL",
+        "phoneCode": "+49",
+        "weather": "Mist"
+      },
+      {
+        "name": "Bangkok",
+        "airportCode": "BKK",
+        "phoneCode": "+66",
+        "weather": "Hail"
+      },
+      {
+        "name": "Buenos Aires",
+        "airportCode": "EZE",
+        "phoneCode": "+54",
+        "weather": "Wind"
+      },
+      {
+        "name": "Istanbul",
+        "airportCode": "IST",
+        "phoneCode": "+90",
+        "weather": "Rain"
+      }
+    ]
+  },
+  {
+    "date": "2024-01-03",
+    "cities": [
+      {
+        "name": "Tokyo",
+        "airportCode": "HND",
+        "phoneCode": "+81",
+        "weather": "Overcast"
+      },
+      {
+        "name": "Delhi",
+        "airportCode": "DEL",
+        "phoneCode": "+91",
+        "weather": "Drizzle"
+      },
+      {
+        "name": "Shanghai",
+        "airportCode": "PVG",
+        "phoneCode": "+86",
+        "weather": "Rain"
+      },
+      {
+        "name": "Johannesburg",
+        "airportCode": "JNB",
+        "phoneCode": "+27",
+        "weather": "Sunny"
+      },
+      {
+        "name": "Madrid",
+        "airportCode": "MAD",
+        "phoneCode": "+34",
+        "weather": "Partly Cloudy"
+      },
+      {
+        "name": "Chicago",
+        "airportCode": "ORD",
+        "phoneCode": "+1",
+        "weather": "Snow"
+      },
+      {
+        "name": "Sydney",
+        "airportCode": "SYD",
+        "phoneCode": "+61",
+        "weather": "Fog"
+      },
+      {
+        "name": "Rome",
+        "airportCode": "FCO",
+        "phoneCode": "+39",
+        "weather": "Cloudy"
+      },
+      {
+        "name": "Cape Town",
+        "airportCode": "CPT",
+        "phoneCode": "+27",
+        "weather": "Thunderstorm"
+      },
+      {
+        "name": "Toronto",
+        "airportCode": "YYZ",
+        "phoneCode": "+1",
+        "weather": "Mist"
+      },
+      {
+        "name": "Berlin",
+        "airportCode": "TXL",
+        "phoneCode": "+49",
+        "weather": "Hail"
+      },
+      {
+        "name": "Bangkok",
+        "airportCode": "BKK",
+        "phoneCode": "+66",
+        "weather": "Sleet"
+      },
+      {
+        "name": "Buenos Aires",
+        "airportCode": "EZE",
+        "phoneCode": "+54",
+        "weather": "Wind"
+      },
+      {
+        "name": "Istanbul",
+        "airportCode": "IST",
+        "phoneCode": "+90",
+        "weather": "Rain"
+      }
+    ]
+  }
+]
