@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ICity, IFiltersState } from '../types/reduxEntityTypes';
 
-interface FiltersState {
-    cityFilter: string;
-    dateFilter: {
-        startDate: string;
-        endDate: string;
-    };
-}
-
-const initialState: FiltersState = {
+const initialState: IFiltersState = {
+    cities: null,
     cityFilter: '',
     dateFilter: {
         startDate: '',
@@ -25,10 +19,13 @@ export const filtersSlice = createSlice({
         },
         setDateFilter: (state, action: PayloadAction<{ startDate: string; endDate: string }>) => {
             state.dateFilter = action.payload;
+        },
+        setFilteredWeatherData: (state, action: PayloadAction<ICity[]>) => {
+            state.cities = action.payload;
         }
     }
 });
 
-export const { setCityFilter, setDateFilter } = filtersSlice.actions;
+export const { setCityFilter, setDateFilter, setFilteredWeatherData } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

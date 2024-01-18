@@ -1,16 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface ICity {
-    date: string;
-    name: string;
-    airportCode: string;
-    phoneCode: string;
-    weather: string;
-}
-
-interface IWeather {
-    cities: ICity[]
-}
+import { IWeather } from '../types/reduxEntityTypes';
 
 export const weatherSlice = createSlice({
     name: 'weather',

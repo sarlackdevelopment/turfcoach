@@ -4,22 +4,24 @@ import { FiFilter } from 'react-icons/fi';
 import './styles.scss';
 import DateRangePicker from '../cityFilters/dateRangePicker';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { ICity, setWeatherData } from '../../redux/slices/weatherSlice';
-import { setCityFilter } from '../../redux/slices/filtersSlice';
+import { setWeatherData } from '../../redux/slices/weatherSlice';
+import { setCityFilter, setFilteredWeatherData } from '../../redux/slices/filtersSlice';
+import { ICity } from '../../redux/types/reduxEntityTypes';
 
 const Modal = lazy(() => import('../partials/modal/index'));
 
 const CityList = () => {
     const dispatch = useAppDispatch();
     const cities = useAppSelector(state => state.weather.cities);
+    const filteredData = useAppSelector(state => state.filters.cities);
     const cityFilter = useAppSelector(state => state.filters.cityFilter);
     const [editColumn, setEditColumn] = useState(null);
     const handleCityFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCityFilter(event.target.value));
-        const filteredData = cities?.filter((city: ICity) =>
-            city.name.toLowerCase().includes(cityFilter.toLowerCase())
-        )
-        dispatch(setWeatherData(filteredData));
+        const filterValue = event.target.value;
+        dispatch(setCityFilter(filterValue));
+        dispatch(setFilteredWeatherData(cities?.filter((city: ICity) =>
+            city.name.toLowerCase().includes(filterValue.toLowerCase())
+        )));
     };
     const inputRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,6 +41,7 @@ const CityList = () => {
                 }
                 const data = await response.json();
                 dispatch(setWeatherData(data.cities));
+                dispatch(setFilteredWeatherData(data.cities));
             } catch (error) {
                 console.log(error);
             }
@@ -69,6 +72,7 @@ const CityList = () => {
                                     type="text"
                                     placeholder="City name"
                                     onBlur={ () => setEditColumn(null) }
+                                    value={ cityFilter }
                                     ref={ inputRef }
                                     onChange={ handleCityFilterChange }
                                 />
@@ -80,8 +84,8 @@ const CityList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    { cities && cities.map((city: any, index: any) => (
-                        <tr key={ index } onClick={ () => handleRowClick(city.name) }>
+                    { filteredData && filteredData.map((city: ICity, index: number) => (
+                        <tr key={ index.toString() } onClick={ () => handleRowClick(city.name) }>
                             <td>{ city.date }</td>
                             <td>{ city.name }</td>
                             <td>{ city.airportCode }</td>
