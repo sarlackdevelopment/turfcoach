@@ -20,6 +20,9 @@ const Modal: FC<IProps> = ({ children, show, onClose }) => {
                     <MdClose />
                 </button>
                 { children }
+                <div className="modal-footer">
+                    <button className="btn btn-secondary" onClick={ onClose }>Cancel</button>
+                </div>
             </div>
         </div>
     );

@@ -15,6 +15,7 @@ const CityList = () => {
     const cities = useAppSelector(state => state.weather.cities);
     const filteredData = useAppSelector(state => state.filters.cities);
     const cityFilter = useAppSelector(state => state.filters.cityFilter);
+
     const [editColumn, setEditColumn] = useState(null);
     const handleCityFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         const filterValue = event.target.value;
