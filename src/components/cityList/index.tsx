@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles.scss';
 
 const CityList = () => {
     const [weatherData, setWeatherData] = useState(null);
+
+    const navigate = useNavigate();
+
+    const handleRowClick = (cityName: string) => {
+        navigate(`/city/${cityName}`);
+    };
 
     useEffect(() => {
         const fetchWeatherData = async () => {
@@ -41,7 +48,7 @@ const CityList = () => {
                 </thead>
                 <tbody>
                     { currentDateWeather && currentDateWeather.cities.map((city: any, index: any) => (
-                        <tr key={ index }>
+                        <tr key={ index } onClick={ () => handleRowClick(city.name) }>
                             <td>{ city.name }</td>
                             <td>{ city.airportCode }</td>
                             <td>{ city.phoneCode }</td>

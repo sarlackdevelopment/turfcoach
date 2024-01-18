@@ -1,18 +1,24 @@
 .city-list-container {
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   background-color: #f8f9fa;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .city-list-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
+  cursor: pointer;
 
   th {
     background-color: #e9ecef;
     color: #495057;
     padding: 1rem;
     border-top: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   td {
