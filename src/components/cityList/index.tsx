@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiFilter } from 'react-icons/fi';
 import './styles.scss';
+import DateRangePicker from '../cityFilters/dateRangePicker';
+
+const Modal = React.lazy(() => import('../partials/modal/index'));
 
 const CityList = () => {
     const [weatherData, setWeatherData] = useState(null);
+    const [editColumn, setEditColumn] = useState(null);
+    const inputRef = useRef(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -28,6 +35,12 @@ const CityList = () => {
         fetchWeatherData();
     }, []);
 
+    useEffect(() => {
+        if (editColumn === 'city') {
+            inputRef.current.focus();
+        }
+    }, [editColumn]);
+
     if (!weatherData) {
         return <div>Loading...</div>;
     }
@@ -40,7 +53,17 @@ const CityList = () => {
             <table className="city-list-table">
                 <thead>
                     <tr>
-                        <th>City</th>
+                        <th><span onClick={ () => setIsModalOpen(true) }>Date <FiFilter /></span></th>
+                        <th>
+                            { editColumn === 'city'
+                                ? <input
+                                    type="text"
+                                    placeholder="City name"
+                                    onBlur={ () => setEditColumn(null) }
+                                    ref={ inputRef }
+                                />
+                                : <span onClick={ () => setEditColumn('city') }>City <FiFilter /></span> }
+                        </th>
                         <th>Airport Code</th>
                         <th>Phone Code</th>
                         <th>Weather</th>
@@ -49,17 +72,22 @@ const CityList = () => {
                 <tbody>
                     { currentDateWeather && currentDateWeather.cities.map((city: any, index: any) => (
                         <tr key={ index } onClick={ () => handleRowClick(city.name) }>
+                            <td>{ currentDateWeather.date }</td>
                             <td>{ city.name }</td>
                             <td>{ city.airportCode }</td>
                             <td>{ city.phoneCode }</td>
-                            <td>
-                                <span className="weather-icon">[Icon]</span>
-                                { city.weather }
-                            </td>
+                            <td>{ city.weather }</td>
                         </tr>
                     )) }
                 </tbody>
             </table>
+            <Suspense fallback={ <div>Loading...</div> }>
+                { isModalOpen && (
+                    <Modal show={ isModalOpen } onClose={ () => setIsModalOpen(false) }>
+                        <DateRangePicker />
+                    </Modal>
+                ) }
+            </Suspense>
         </div>
     );
 };
