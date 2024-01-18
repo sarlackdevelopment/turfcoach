@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "lib": ["es6", "dom"],
+    "target": "es6",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "strict": false
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules/monaco-editor/esm"
+  ]
+}

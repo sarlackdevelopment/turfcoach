@@ -1,0 +1,12 @@
+{
+  "short_name": "turfcoach",
+  "name": "turfcoach",
+  "icons": [
+    {
+      "src": "icon/fav.webp",
+      "sizes": "125x125",
+      "type": "image/webp"
+    }
+  ],
+  "start_url": "/"
+}
