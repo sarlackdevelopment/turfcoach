@@ -1,17 +1,26 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiFilter } from 'react-icons/fi';
 import './styles.scss';
 import DateRangePicker from '../cityFilters/dateRangePicker';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { setWeatherData } from '../../redux/slices/weatherSlice';
+import { ICity, setWeatherData } from '../../redux/slices/weatherSlice';
+import { setCityFilter } from '../../redux/slices/filtersSlice';
 
-const Modal = React.lazy(() => import('../partials/modal/index'));
+const Modal = lazy(() => import('../partials/modal/index'));
 
 const CityList = () => {
     const dispatch = useAppDispatch();
-    const weatherData = useAppSelector(state => state.weather.data);
+    const cities = useAppSelector(state => state.weather.cities);
+    const cityFilter = useAppSelector(state => state.filters.cityFilter);
     const [editColumn, setEditColumn] = useState(null);
+    const handleCityFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setCityFilter(event.target.value));
+        const filteredData = cities?.filter((city: ICity) =>
+            city.name.toLowerCase().includes(cityFilter.toLowerCase())
+        )
+        dispatch(setWeatherData(filteredData));
+    };
     const inputRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,7 +38,7 @@ const CityList = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                dispatch(setWeatherData(data));
+                dispatch(setWeatherData(data.cities));
             } catch (error) {
                 console.log(error);
             }
@@ -44,12 +53,9 @@ const CityList = () => {
         }
     }, [editColumn]);
 
-    if (!weatherData) {
+    if (!cities) {
         return <div>Loading...</div>;
     }
-
-    // Assuming that the weather data for the specific date is already in the expected format
-    const currentDateWeather = weatherData.find((data: any) => data.date === '2024-01-01');
 
     return (
         <div className="city-list-container">
@@ -64,6 +70,7 @@ const CityList = () => {
                                     placeholder="City name"
                                     onBlur={ () => setEditColumn(null) }
                                     ref={ inputRef }
+                                    onChange={ handleCityFilterChange }
                                 />
                                 : <span onClick={ () => setEditColumn('city') }>City <FiFilter /></span> }
                         </th>
@@ -73,9 +80,9 @@ const CityList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    { currentDateWeather && currentDateWeather.cities.map((city: any, index: any) => (
+                    { cities && cities.map((city: any, index: any) => (
                         <tr key={ index } onClick={ () => handleRowClick(city.name) }>
-                            <td>{ currentDateWeather.date }</td>
+                            <td>{ city.date }</td>
                             <td>{ city.name }</td>
                             <td>{ city.airportCode }</td>
                             <td>{ city.phoneCode }</td>

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface ICity {
+export interface ICity {
+    date: string;
     name: string;
     airportCode: string;
     phoneCode: string;
@@ -8,17 +9,17 @@ interface ICity {
 }
 
 interface IWeather {
-    data: ICity[]
+    cities: ICity[]
 }
 
 export const weatherSlice = createSlice({
     name: 'weather',
     initialState: {
-        data: null
+        cities: null
     },
     reducers: {
         setWeatherData: (state, action: PayloadAction<IWeather>) => {
-            state.data = action.payload;
+            state.cities = action.payload;
         }
     }
 });
