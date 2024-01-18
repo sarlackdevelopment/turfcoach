@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { FiFilter } from 'react-icons/fi';
 import './styles.scss';
 import DateRangePicker from '../cityFilters/dateRangePicker';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setWeatherData } from '../../redux/slices/weatherSlice';
 
 const Modal = React.lazy(() => import('../partials/modal/index'));
 
 const CityList = () => {
-    const [weatherData, setWeatherData] = useState(null);
+    const dispatch = useAppDispatch();
+    const weatherData = useAppSelector(state => state.weather.data);
     const [editColumn, setEditColumn] = useState(null);
     const inputRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +29,7 @@ const CityList = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setWeatherData(data);
+                dispatch(setWeatherData(data));
             } catch (error) {
                 console.log(error);
             }
