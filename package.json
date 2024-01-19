@@ -10,7 +10,8 @@
     "test": "test",
     "lint": "eslint -c .eslintrc --ext .ts --ext .tsx ./src --max-warnings=0",
     "lint:ci": "npm run lint -- --max-warnings=1544",
-    "lint:fix": "eslint --quiet -c .eslintrc --ext .ts --ext .tsx ./src --max-warnings=0 --fix"
+    "lint:fix": "eslint --quiet -c .eslintrc --ext .ts --ext .tsx ./src --max-warnings=0 --fix",
+    "npx:cy": "cypress open"
   },
   "repository": {
     "type": "git"
@@ -38,6 +39,7 @@
     "@typescript-eslint/parser": "^6.16.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.9.0",
+    "cypress": "^13.6.3",
     "eslint": "^8.56.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-import": "^2.29.1",
