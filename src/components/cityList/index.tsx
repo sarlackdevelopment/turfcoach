@@ -1,25 +1,31 @@
-import React, { useState, useEffect, useRef, Suspense, lazy, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { Suspense, lazy, ChangeEvent } from 'react';
 import { FiFilter } from 'react-icons/fi';
 import { BsStar, BsStarFill } from 'react-icons/bs';
 import './styles.scss';
 import DateRangePicker from '../cityFilters/dateRangePicker';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { setWeatherData, toggleFavoriteCity } from '../../redux/slices/weatherSlice';
+import { toggleFavoriteCity } from '../../redux/slices/weatherSlice';
 import { setCityFilter, setFilteredWeatherData } from '../../redux/slices/filtersSlice';
 import { ICity } from '../../redux/types/reduxEntityTypes';
+import useLogic from './useLogic';
 
 const Modal = lazy(() => import('../partials/modal/index'));
 
 const CityList = () => {
-    const dispatch = useAppDispatch();
-    const cities = useAppSelector(state => state.weather.cities);
-    const filteredData = useAppSelector(state => state.filters.cities);
-    const cityFilter = useAppSelector(state => state.filters.cityFilter);
-    const favorites = useAppSelector(state => state.weather.favorites);
-
-    const [editColumn, setEditColumn] = useState(null);
-    const [filterFavorite, setFilterFavorite] = useState(true);
+    const {
+        dispatch,
+        cities,
+        filteredData,
+        cityFilter,
+        favorites,
+        editColumn,
+        setEditColumn,
+        filterFavorite,
+        setFilterFavorite,
+        isModalOpen,
+        setIsModalOpen,
+        navigate,
+        inputRef
+    } = useLogic();
     const handleCityFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         const filterValue = event.target.value;
         dispatch(setCityFilter(filterValue));
@@ -30,49 +36,20 @@ const CityList = () => {
     const handleFavorite = () => {
         setFilterFavorite((prev: boolean) => !prev);
         const intersection = cities.filter(city => favorites.includes(city.name));
-        console.log(intersection);
         if (filterFavorite) {
             dispatch(setFilteredWeatherData(intersection));
         } else {
             dispatch(setFilteredWeatherData(cities));
         }
     }
-    const inputRef = useRef(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleFavoriteToggle = (cityName: string) => {
         dispatch(toggleFavoriteCity(cityName));
     };
 
-    const navigate = useNavigate();
-
     const handleRowClick = (cityName: string) => {
         navigate(`/city/${cityName}`);
     };
-
-    useEffect(() => {
-        const fetchWeatherData = async () => {
-            try {
-                const response = await fetch('/weather.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                dispatch(setWeatherData(data.cities));
-                dispatch(setFilteredWeatherData(data.cities));
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchWeatherData();
-    }, []);
-
-    useEffect(() => {
-        if (editColumn === 'city') {
-            inputRef.current.focus();
-        }
-    }, [editColumn]);
 
     if (!cities) {
         return <div>Loading...</div>;

@@ -1,14 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import './styles.scss';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { setDateFilter, setFilteredWeatherData } from '../../../redux/slices/filtersSlice';
 import { ICity } from '../../../redux/types/reduxEntityTypes';
+import useLogic from './useLogic';
 
 const DateRangePicker = () => {
-    const dispatch = useAppDispatch();
-    const { startDate, endDate } = useAppSelector(state => state.filters.dateFilter);
-    const cities = useAppSelector(state => state.weather.cities);
-
+    const {
+        dispatch,
+        cities,
+        startDate,
+        endDate
+    } = useLogic();
     const handleStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
         const filterValue = event.target.value;
         dispatch(setDateFilter({ startDate: filterValue, endDate }));
