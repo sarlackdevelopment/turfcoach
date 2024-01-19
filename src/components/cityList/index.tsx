@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, Suspense, lazy, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiFilter } from 'react-icons/fi';
+import { BsStar, BsStarFill } from 'react-icons/bs';
 import './styles.scss';
 import DateRangePicker from '../cityFilters/dateRangePicker';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { setWeatherData } from '../../redux/slices/weatherSlice';
+import { setWeatherData, toggleFavoriteCity } from '../../redux/slices/weatherSlice';
 import { setCityFilter, setFilteredWeatherData } from '../../redux/slices/filtersSlice';
 import { ICity } from '../../redux/types/reduxEntityTypes';
 
@@ -15,8 +16,10 @@ const CityList = () => {
     const cities = useAppSelector(state => state.weather.cities);
     const filteredData = useAppSelector(state => state.filters.cities);
     const cityFilter = useAppSelector(state => state.filters.cityFilter);
+    const favorites = useAppSelector(state => state.weather.favorites);
 
     const [editColumn, setEditColumn] = useState(null);
+    const [filterFavorite, setFilterFavorite] = useState(true);
     const handleCityFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         const filterValue = event.target.value;
         dispatch(setCityFilter(filterValue));
@@ -24,8 +27,22 @@ const CityList = () => {
             city.name.toLowerCase().includes(filterValue.toLowerCase())
         )));
     };
+    const handleFavorite = () => {
+        setFilterFavorite((prev: boolean) => !prev);
+        const intersection = cities.filter(city => favorites.includes(city.name));
+        console.log(intersection);
+        if (filterFavorite) {
+            dispatch(setFilteredWeatherData(intersection));
+        } else {
+            dispatch(setFilteredWeatherData(cities));
+        }
+    }
     const inputRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleFavoriteToggle = (cityName: string) => {
+        dispatch(toggleFavoriteCity(cityName));
+    };
 
     const navigate = useNavigate();
 
@@ -66,6 +83,7 @@ const CityList = () => {
             <table className="city-list-table">
                 <thead>
                     <tr>
+                        <th><span onClick={ handleFavorite }>Favorite <FiFilter /></span></th>
                         <th><span onClick={ () => setIsModalOpen(true) }>Date <FiFilter /></span></th>
                         <th>
                             { editColumn === 'city'
@@ -86,12 +104,15 @@ const CityList = () => {
                 </thead>
                 <tbody>
                     { filteredData && filteredData.map((city: ICity, index: number) => (
-                        <tr key={ index.toString() } onClick={ () => handleRowClick(city.name) }>
-                            <td>{ city.date }</td>
-                            <td>{ city.name }</td>
-                            <td>{ city.airportCode }</td>
-                            <td>{ city.phoneCode }</td>
-                            <td>{ city.weather }</td>
+                        <tr key={ index.toString() } >
+                            <td onClick={ () => handleFavoriteToggle(city.name) }>
+                                { favorites.includes(city.name) ? <BsStarFill /> : <BsStar /> }
+                            </td>
+                            <td onClick={ () => handleRowClick(city.name) }>{ city.date }</td>
+                            <td onClick={ () => handleRowClick(city.name) }>{ city.name }</td>
+                            <td onClick={ () => handleRowClick(city.name) }>{ city.airportCode }</td>
+                            <td onClick={ () => handleRowClick(city.name) }>{ city.phoneCode }</td>
+                            <td onClick={ () => handleRowClick(city.name) }>{ city.weather }</td>
                         </tr>
                     )) }
                 </tbody>
